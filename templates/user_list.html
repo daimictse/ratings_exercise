@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 {% block body %}
 
-    {% for user in user_list %}
+    {% for user in users %}
         <h2>User {{user.id}}, age {{user.age}} has {{user.ratings|length}} ratings</h2>
     {% endfor %}
 
