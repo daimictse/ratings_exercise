@@ -3,4 +3,10 @@
 
 <h1>Welcome to {{user.id}}'s Profile.</h1>
 
+{% for rating in ratings %}
+    {% if rating.user_id == user.id %}
+        <p><a href="/movie/{{rating.movie_id}}">{{rating.movie.name}}</a> - {{rating.rating}}</p>
+    {% endif %}
+{% endfor %}
+
 {%endblock %}

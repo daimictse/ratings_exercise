@@ -3,7 +3,7 @@
 
 <h2> All Users on Website.</h2>
 {% for user in users %}
-    <p>User {{user.id}} has {{user.ratings|length}} ratings</p>
+    <p>User <a href="/user/{{user.id}}">{{user.id}}</a> has {{user.ratings|length}} ratings</p>
 {% endfor %}
 
 

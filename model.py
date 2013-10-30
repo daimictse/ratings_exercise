@@ -53,8 +53,7 @@ class Ratings(Base):
 def authenticate(emailAddr, password):
     user = session.query(User).filter(User.email==emailAddr).filter(User.password==password).first()
     if (user):
-        print user.id
-        return user
+        return user.id
     return None
 
 def main():

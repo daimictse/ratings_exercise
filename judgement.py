@@ -13,15 +13,15 @@ def process_login():
     emailAddr = request.form.get("emailaddress")
     password = request.form.get("password")
 
-    user = model.authenticate(emailAddr, password)
-    if user != None:
+    user_id = model.authenticate(emailAddr, password)
+    if user_id != None:
         flash("User authenticated!")
-        session['emailAddr'] = emailAddr
+        session['userId'] = user_id
     else:
         flash("Password incorrect, there may be a ferret stampede in progress!")
         return redirect(url_for("index"))
     
-    return redirect("/user/%s"%user.id)
+    return redirect("/user/%s"%user_id)
 
 @app.route("/allusers") 
 #list of all the users
@@ -35,8 +35,16 @@ def view_user(user_id):
     #the_user_id = model.session.query(model.User).get(user_id)
     # movie_ratings = model.session.query(model.Ratings).all()
     user = model.session.query(model.User).get(user_id)
-    return render_template("user_profile.html", user=user)
+    rating_list = model.session.query(model.Ratings).all()
+    return render_template("user_profile.html", user=user, ratings=rating_list)
 
+@app.route("/movie/<movie_id>")
+#click on user and see the list of movies they've rated as well as the ratings
+def movie_list(movie_id):
+    movie = model.session.query(model.Movies).get(movie_id)
+    userId = session.get("userId")
+    username = model.session.query(model.User).get(userId)
+    return render_template("movie.html", movie=movie, username=username.email)
 
 
 #get id out of users to apply to ratings to get ratings to apply to movies to get titles
