@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    #user_list = model.session.query(model.User).limit(5).all()
+    user_list = model.session.query(model.User).limit(5).all()
     return render_template("user_list.html", users = user_list)
 
 @app.route("/allusers") 
@@ -17,7 +17,12 @@ def see_all_users():
 @app.route("/user/<user_id>")
 #click on user and see the list of movies they've rated as well as the ratings
 def view_user(user_id):
-    the_user_id = model.session.query(model.User).get(user_id)
+    #the_user_id = model.session.query(model.User).get(user_id)
+    movie_ratings = model.session.query(model.Ratings).all()
+
+
+
+#get id out of users to apply to ratings to get ratings to apply to movies to get titles
 
 
 
@@ -47,6 +52,8 @@ def create_user():
     user = model.User(email=email, password=password, age=age, zipcode=zipcode)
     model.session.add(user)
     model.session.commit()
+
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug = True)
