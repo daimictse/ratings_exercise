@@ -1,16 +1,14 @@
 {% extends 'master.html' %}
 {% block body %}
 
-    {% for user in users %}
-        <h2>User {{user.id}}, age {{user.age}} has {{user.ratings|length}} ratings</h2>
-    {% endfor %}
-
     <form class = "signin" method = "POST">
         <h2 class = "signin_heading">Please sign in to your account.</h2><br>
         <input type="text" class="form_control" placeholder="Enter your e-mail address." name = "emailaddress"><br>
         <input type="password" class = "form_control" placeholder="Please enter your password." name = "password"><br>
+        Not a user? <a href="{{ url_for("register") }}">Register </a>a new account<br>
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"><br>
     </form>
 
 {% endblock %}
 
+-

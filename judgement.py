@@ -2,11 +2,26 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 import model
 
 app = Flask(__name__)
+app.secret_key = "shhhhthisisasecret"
 
 @app.route("/")
 def index():
-    user_list = model.session.query(model.User).limit(5).all()
-    return render_template("user_list.html", users = user_list)
+    return render_template("user_list.html")
+
+@app.route("/", methods=["POST"])
+def process_login():
+    emailAddr = request.form.get("emailaddress")
+    password = request.form.get("password")
+
+    user = model.authenticate(emailAddr, password)
+    if user != None:
+        flash("User authenticated!")
+        session['emailAddr'] = emailAddr
+    else:
+        flash("Password incorrect, there may be a ferret stampede in progress!")
+        return redirect(url_for("index"))
+    
+    return redirect("/user/%s"%user.id)
 
 @app.route("/allusers") 
 #list of all the users
@@ -18,7 +33,9 @@ def see_all_users():
 #click on user and see the list of movies they've rated as well as the ratings
 def view_user(user_id):
     #the_user_id = model.session.query(model.User).get(user_id)
-    movie_ratings = model.session.query(model.Ratings).all()
+    # movie_ratings = model.session.query(model.Ratings).all()
+    user = model.session.query(model.User).get(user_id)
+    return render_template("user_profile.html", user=user)
 
 
 
@@ -39,7 +56,7 @@ def view_user(username):
 
 
 @app.route("/register", methods = ["GET"])
-def give_form():
+def register():
     return render_template("register.html")
 
 @app.route("/register", methods = ["POST"])

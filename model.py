@@ -50,6 +50,13 @@ class Ratings(Base):
 
 ### End class declarations
 
+def authenticate(emailAddr, password):
+    user = session.query(User).filter(User.email==emailAddr).filter(User.password==password).first()
+    if (user):
+        print user.id
+        return user
+    return None
+
 def main():
     """In case we need this for something"""
     pass
