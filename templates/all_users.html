@@ -1,0 +1,10 @@
+{% extends 'master.html' %}
+{% block body %}
+
+<h2> All Users on Website.</h2>
+{% for user in users %}
+    <p>User {{user.id}} has {{user.ratings|length}} ratings</p>
+{% endfor %}
+
+
+{% endblock %}

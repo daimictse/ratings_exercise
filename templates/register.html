@@ -1,0 +1,11 @@
+{% extends 'master.html' %}
+{% block body %}
+    <form class = "register" method = "POST">
+        <h2 class = "register_heading">Register a new account with our site.</h2><br>
+        <input type="text" class="form_control" placeholder="Please enter your e-mail address." name = "emailaddress"><br>
+        <input type="password" class = "form_control" placeholder="Choose your password." name = "password"><br>
+        <input type="age" class = "form_control" placeholder="Please enter your age." name = "age"><br>
+        <input type = "zipcode" class = "form_control" placeholder="Please enter your zipcode." name = "zipcode"><br>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"><br>
+    </form>
+{% endblock %}

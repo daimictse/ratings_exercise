@@ -1,5 +1,16 @@
-<html>
-    {% for user in users %}
-        <h2>User {{ user.id }}, age {{ user.age }} has {{ user.ratings|length }} ratings</h2>
+{% extends 'master.html' %}
+{% block body %}
+
+    {% for user in user_list %}
+        <h2>User {{user.id}}, age {{user.age}} has {{user.ratings|length}} ratings</h2>
     {% endfor %}
-</html>
+
+    <form class = "signin" method = "POST">
+        <h2 class = "signin_heading">Please sign in to your account.</h2>
+        <input type="text" class="form_control" placeholder="Enter your e-mail address." name = "emailaddress">
+        <input type="password" class = "form_control" placeholder="Please enter your password." name = "password">
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
+    </form>
+
+{% endblock %}
+
