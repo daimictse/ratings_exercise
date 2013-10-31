@@ -9,6 +9,12 @@
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"><br>
     </form>
 
+    <h2>Search For Movies</h2>
+    <form action="{{url_for("search")}}" method="POST">
+        <input type="text" name="query">
+        <input type="submit">
+    </form>
+
 {% endblock %}
 
 -

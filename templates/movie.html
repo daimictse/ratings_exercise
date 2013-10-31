@@ -3,15 +3,28 @@
 
 <h1>Movie: {{movie.name}}</h1>
 
-<p>Rated ?? by User {{username}}</p>
+{% if prediction %}
+<h3>We predict you will rate this movie {{prediction}}.</h3>
+{% else %}
+<p>You rated this movie {{rating.rating}}</p>
+{% endif %}
 
-{% for rating in ratings %}
-    {% if rating.movie_id == movie.id %}
-        <p>The user <a href="/user/{{user_id}}">{{user_id}}</a> rated this movie {{rating.rating}}.</p>
-    {% endif %}
-{% endfor %}
+<h2>Rate this movie</h2>
+<form action="{{url_for('rate_movie', movie_id=movie.id)}}" method="post">
+    <select name="rating">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <input type="submit">
+</form>
 
-
-<input type="submit" value="Change Rating">
+<h2>See how other people rated this movie</h2>
+<form action="{{url_for('movie_ratings', movie_id=movie.id)}}" method="post">
+    <input type="submit" value="Go">
+</form>
 
 {%endblock %}

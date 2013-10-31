@@ -1,0 +1,10 @@
+{% extends 'master.html' %}
+{% block body %}
+
+<h2> Ratings for movie {{movieName}} </h2>
+{% for rating in ratings %}
+    <p>User {{rating.user_id}} gave a rating of {{rating.rating}}</p>
+{% endfor %}
+
+
+{% endblock %}
