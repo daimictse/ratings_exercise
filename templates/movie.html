@@ -5,6 +5,13 @@
 
 <p>Rated ?? by User {{username}}</p>
 
+{% for rating in ratings %}
+    {% if rating.movie_id == movie.id %}
+        <p>The user <a href="/user/{{user_id}}">{{user_id}}</a> rated this movie {{rating.rating}}.</p>
+    {% endif %}
+{% endfor %}
+
+
 <input type="submit" value="Change Rating">
 
 {%endblock %}

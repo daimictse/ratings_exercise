@@ -18,7 +18,7 @@ def process_login():
         flash("User authenticated!")
         session['userId'] = user_id
     else:
-        flash("Password incorrect, there may be a ferret stampede in progress!")
+        flash("Login information is incorrect.")
         return redirect(url_for("index"))
     
     return redirect("/user/%s"%user_id)
@@ -41,10 +41,12 @@ def view_user(user_id):
 @app.route("/movie/<movie_id>")
 #click on user and see the list of movies they've rated as well as the ratings
 def movie_list(movie_id):
-    movie = model.session.query(model.Movies).get(movie_id)
-    userId = session.get("userId")
-    username = model.session.query(model.User).get(userId)
-    return render_template("movie.html", movie=movie, username=username.email)
+    movie = model.session.query(model.Ratings).get(movie_id)
+    #user_id = model.session.query(model.Ratings).get(model.Ratings.users.id)
+    #userId = session.get("userId")
+    #username = model.session.query(model.User).get(userId)
+    rating = model.session.query(model.Ratings).filter(model.Ratings.movie.name).all()
+    return render_template("movie.html", movie=movie, ratings=rating) #username=username.email)
 
 
 #get id out of users to apply to ratings to get ratings to apply to movies to get titles
